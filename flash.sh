@@ -33,8 +33,8 @@ ask() {
     # `< /dev/tty` is required to be able to run via pipe: cat x.sh | bash
     read -rp "${warn_msg} $* ${accent} +/empty or - ${normal} " response < /dev/tty || { echo "No tty"; exit 1; }
     case "$response" in
-      ""|"+") return 0 ;;
-      "-") return 1 ;;
+      ""|"+") echo; return 0 ;;
+      "-")    echo; return 1 ;;
     esac
   done
 }
@@ -158,14 +158,52 @@ partitions=(
 for i in "${!partitions[@]}"; do
   _echo "${accent} ${partitions[$i]}"
   $ssh_cmd nanddump /dev/mtd$i > "${backup_dir}/${partitions[$i]}.bin"
+  _echo
 done
 
+until $ssh_cmd "dmesg | grep -i 'spi nand'" &> /dev/null; do
+  _echo "${warn_msg} Can't detect your router NAND flash"
+  _echo "${warn_msg} Stable OpenWRT build does not fully support Foresee NAND flash yet"
+  _echo "${warn_msg} Flashing it on unsupported NAND flash may potentially brick your device"
+  _echo
+  _echo "${warn_msg} It is recommended to reboot your router and retry NAND flash detection"
+  _echo
+  _echo " Or you can manually check that your router NAND flash is supported"
+  _echo " by the firmware you are going to install and ignore this message"
+  _echo
+  _echo " More info: ${accent} $docs_url"
+
+  if ask "Reboot your router and retry NAND flash detection (Enter) or ignore this (-)?"; then
+    $ssh_cmd reboot
+    _echo " Waiting for the router to reboot"
+    sleep 10
+    wait_host $stock_ip
+  else
+    break
+  fi
+done
+
+if $ssh_cmd "dmesg | grep -i foresee" &> /dev/null; then
+  _echo "${warn_msg} Your router has a Foresee NAND flash, which is not fully supported by the stable OpenWRT build yet"
+  _echo "${warn_msg} Flashing stable OpenWRT build may potentially brick your device"
+  _echo
+  _echo "${warn_msg} Please instead use one of these builds:"
+  _echo "- Test build from dimfishr: ${accent} https://github.com/dimfishr/openwrt/releases/latest"
+  _echo "- Build from remittor: ${accent} https://github.com/openwrt-xiaomi/builder/releases/latest"
+  _echo "- Build from santa: ${accent} https://santa-atmo.ru/ax3000t"
+  _echo
+  _echo "More info: ${accent} $docs_url"
+
+  ask "Proceed (Enter) or exit (-)?" || exit 1
+fi
+
 while ping -c 3 -W 1 $openwrt_ip &> /dev/null; do
-  _echo "\n${warn_msg} Your router will use IP $openwrt_ip"
-  _echo   "${warn_msg} However, some device on this network already uses IP $openwrt_ip"
-  _echo   "${warn_msg} This could lead to flashing the wrong device and potentially bricking it"
-  _echo "\n${warn_msg} To fix this, you could either disconnect from this network,"
-  _echo   "${warn_msg} or disconnect device with IP $openwrt_ip from it"
+  _echo "${warn_msg} Your router will use IP $openwrt_ip"
+  _echo "${warn_msg} However, some device on this network already uses IP $openwrt_ip"
+  _echo "${warn_msg} This could lead to flashing the wrong device and potentially bricking it"
+  _echo
+  _echo "${warn_msg} To fix this, you could either disconnect from this network,"
+  _echo "${warn_msg} or disconnect device with IP $openwrt_ip from it"
   _echo
   read -rsp "${warn_msg} Press Enter to continue ${normal}" < /dev/tty; echo
 done
