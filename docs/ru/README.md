@@ -3,6 +3,10 @@
 
 ### Установщик OpenWRT для Xiaomi AX3000T
 
+Установщик автоматизирует [инструкции по установке из документации OpenWRT](https://openwrt.org/inbox/toh/xiaomi/ax3000t#installation), часть кода напрямую заимствована оттуда.
+
+Работает на Linux. На Windows можно запустить, используя подсистему Windows для Linux (WSL) или виртуальную машину.
+
 [Видео, ⏱️ 2 мин.](https://youtu.be/FMnWNaDLeDU)
 
 

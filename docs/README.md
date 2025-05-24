@@ -3,6 +3,10 @@
 
 ### OpenWRT firmware installer for Xiaomi AX3000T
 
+This installer automates [installation instructions from OpenWRT docs](https://openwrt.org/inbox/toh/xiaomi/ax3000t#installation), some of the code has been taken directly from there.
+
+Works on Linux. Can be run on Windows with Windows Subsystem for Linux (WSL) or virtual machine.
+
 [Video demo, ⏱️ 2 min.](https://youtu.be/FMnWNaDLeDU)
 
 
