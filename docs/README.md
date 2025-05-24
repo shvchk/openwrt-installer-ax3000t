@@ -3,6 +3,8 @@
 
 ### OpenWRT firmware installer for Xiaomi AX3000T
 
+[Video demo, ⏱️ 2 min.](https://youtu.be/FMnWNaDLeDU)
+
 
 0. [Download OpenWRT](https://firmware-selector.openwrt.org/?target=mediatek/filogic&id=xiaomi_mi-router-ax3000t) `initramfs-factory` and `sysupgrade` images
 
