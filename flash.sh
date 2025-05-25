@@ -141,6 +141,7 @@ done
 
 
 _echo "\n\n${info_msg} Backup"; echo
+_echo "${info_msg} Backup directory: ${normal} $(readlink -f -- "$backup_dir")"; echo
 
 ssh_cmd="ssh -o StrictHostKeyChecking=no -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa root@$stock_ip -- "
 firmware="$($ssh_cmd "sed -E 's/.*firmware=(\S).*/\1/' /proc/cmdline")"
