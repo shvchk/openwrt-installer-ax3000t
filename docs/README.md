@@ -9,6 +9,10 @@ Works on Linux. Can be run on Windows with Windows Subsystem for Linux (WSL) or 
 
 [Video demo, ⏱️ 2 min.](https://youtu.be/FMnWNaDLeDU)
 
+[![Video demo](misc/video-preview.webp)](https://youtu.be/FMnWNaDLeDU)
+
+
+### Usage
 
 0. [Download OpenWRT](https://firmware-selector.openwrt.org/?target=mediatek/filogic&id=xiaomi_mi-router-ax3000t) `initramfs-factory` and `sysupgrade` images
 

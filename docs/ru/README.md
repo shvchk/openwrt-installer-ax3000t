@@ -9,6 +9,10 @@
 
 [Видео, ⏱️ 2 мин.](https://youtu.be/FMnWNaDLeDU)
 
+[![Видео](../misc/video-preview.webp)](https://youtu.be/FMnWNaDLeDU)
+
+
+### Использование
 
 0. [Загрузите OpenWRT](https://firmware-selector.openwrt.org/?target=mediatek/filogic&id=xiaomi_mi-router-ax3000t): файлы `initramfs-factory` и `sysupgrade`
 
